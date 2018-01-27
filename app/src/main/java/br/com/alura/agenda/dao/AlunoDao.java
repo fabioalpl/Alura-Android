@@ -2,8 +2,12 @@ package br.com.alura.agenda.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.alura.agenda.modelo.Aluno;
 
@@ -40,5 +44,28 @@ public class AlunoDao extends SQLiteOpenHelper {
         dados.put("Nota", aluno.getNota());
 
         db.insert("Alunos", null, dados );
+    }
+
+    public List<Aluno> buscaAlunos() {
+        String sql = "SELECT * FROM Alunos";
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.rawQuery(sql, null);
+
+        List<Aluno> alunos = new ArrayList<Aluno>();
+        while (c.moveToNext()){
+            Aluno aluno = new Aluno();
+            aluno.setId(c.getLong(c.getColumnIndex("id")));
+            aluno.setNome(c.getString(c.getColumnIndex("Nome")));
+            aluno.setEndereco(c.getString(c.getColumnIndex("Endereco")));
+            aluno.setTelefone(c.getString(c.getColumnIndex("Telefone")));
+            aluno.setSite(c.getString(c.getColumnIndex("Site")));
+            aluno.setNota(c.getDouble(c.getColumnIndex("Nota")));
+
+            alunos.add(aluno);
+        }
+        c.close();
+
+        return alunos;
     }
 }

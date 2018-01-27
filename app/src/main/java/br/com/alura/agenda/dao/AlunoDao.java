@@ -56,11 +56,11 @@ public class AlunoDao extends SQLiteOpenHelper {
         while (c.moveToNext()){
             Aluno aluno = new Aluno();
             aluno.setId(c.getLong(c.getColumnIndex("id")));
-            aluno.setNome(c.getString(c.getColumnIndex("Nome")));
-            aluno.setEndereco(c.getString(c.getColumnIndex("Endereco")));
-            aluno.setTelefone(c.getString(c.getColumnIndex("Telefone")));
-            aluno.setSite(c.getString(c.getColumnIndex("Site")));
-            aluno.setNota(c.getDouble(c.getColumnIndex("Nota")));
+            aluno.setNome(c.getString(c.getColumnIndex("nome")));
+            aluno.setEndereco(c.getString(c.getColumnIndex("endereco")));
+            aluno.setTelefone(c.getString(c.getColumnIndex("telefone")));
+            aluno.setSite(c.getString(c.getColumnIndex("site")));
+            aluno.setNota(c.getDouble(c.getColumnIndex("nota")));
 
             alunos.add(aluno);
         }

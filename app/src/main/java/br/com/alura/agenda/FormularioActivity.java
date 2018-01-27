@@ -8,14 +8,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import br.com.alura.agenda.modelo.Aluno;
+
 public class FormularioActivity extends AppCompatActivity {
+
+    private FormularioHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
+        helper = new FormularioHelper(this);
 
         /*Button buttonSalvar = (Button) findViewById(R.id.formulario_salvar);
         buttonSalvar.setOnClickListener(new OnClickListener(){
@@ -39,7 +46,9 @@ public class FormularioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_formulario_ok:
-                Toast.makeText(FormularioActivity.this, "Salvar clicado!", Toast.LENGTH_SHORT).show();
+                Aluno aluno = helper.pegaAluno();
+                Toast.makeText(FormularioActivity.this, "Aluno: " + aluno.getNome() + " salvo!", Toast.LENGTH_SHORT).show();
+
                 finish();
                 break;
         }

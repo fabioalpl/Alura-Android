@@ -1,5 +1,6 @@
 package br.com.alura.agenda;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,14 +26,11 @@ public class FormularioActivity extends AppCompatActivity {
 
         helper = new FormularioHelper(this);
 
-        /*Button buttonSalvar = (Button) findViewById(R.id.formulario_salvar);
-        buttonSalvar.setOnClickListener(new OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-            }
-        });*/
+        Intent intent = getIntent();
+        Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
+        if(aluno != null){
+            helper.preencheFormulario(aluno);
+        }
     }
 
     @Override

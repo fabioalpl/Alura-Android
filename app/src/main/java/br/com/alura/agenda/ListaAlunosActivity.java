@@ -1,6 +1,8 @@
 package br.com.alura.agenda;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Browser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -68,12 +70,24 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(((AdapterView.AdapterContextMenuInfo) menuInfo).position);
+
+        MenuItem itemSite = menu.add("Visitar Site");
+        Intent intentSite = new Intent(Intent.ACTION_VIEW);
+
+        String site = aluno.getSite();
+        if(!site.startsWith("http://")){
+            site = "http://" + site;
+        }
+
+        intentSite.setData(Uri.parse(site));
+        itemSite.setIntent(intentSite);
+
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(((AdapterView.AdapterContextMenuInfo) menuInfo).position);
 
                 AlunoDao dao = new AlunoDao(ListaAlunosActivity.this);
                 dao.deleta(aluno);

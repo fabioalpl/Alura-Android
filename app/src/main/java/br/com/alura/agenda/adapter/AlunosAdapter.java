@@ -54,7 +54,10 @@ public class AlunosAdapter extends BaseAdapter{
         viewContext.setText(alunos.toString());*/
         Aluno aluno = alunos.get(i);
         LayoutInflater inflater = LayoutInflater.from(context);
-        View viewContext = inflater.inflate(R.layout.list_item, viewGroup);
+        View viewContext = view;
+        if(viewContext == null) {
+            viewContext = inflater.inflate(R.layout.list_item, viewGroup, false);
+        }
 
         TextView campoNome = (TextView) viewContext.findViewById(R.id.item_nome);
         campoNome.setText(aluno.getNome());

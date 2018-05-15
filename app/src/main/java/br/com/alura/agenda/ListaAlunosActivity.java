@@ -93,7 +93,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 startActivity(vaiParaProvas);
                 break;
             case R.id.menu_mapa:
-                Intent vaiParaMapa = new Intent( this, MapaActivity.class);
+                Intent vaiParaMapa = new Intent( this, MapaFragment.class);
                 startActivity(vaiParaMapa);
                 break;
         }

@@ -2,6 +2,8 @@ package br.com.alura.agenda.tasks;
 
 import android.os.AsyncTask;
 
+import br.com.alura.agenda.WebClient;
+import br.com.alura.agenda.converter.AlunoConverter;
 import br.com.alura.agenda.modelo.Aluno;
 
 public class InsereAlunoTask extends AsyncTask {
@@ -14,6 +16,8 @@ public class InsereAlunoTask extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        String json = new AlunoConverter().converteParaJSONCompleto(aluno);
+        new WebClient().insere(json);
         return null;
     }
 }

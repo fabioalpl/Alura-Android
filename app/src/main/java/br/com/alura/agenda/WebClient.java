@@ -13,9 +13,15 @@ import java.util.Scanner;
  */
 
 public class WebClient {
+
     public String post(String json){
+        String endereco = "https://www.caelum.com.br/mobile";
+        return realizaConexao(json, endereco);
+    }
+
+    private String realizaConexao(String json, String endereco) {
         try {
-            URL url = new URL("https://www.caelum.com.br/mobile");
+            URL url = new URL(endereco);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("Content-type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
@@ -29,12 +35,16 @@ public class WebClient {
 
             Scanner scanner = new Scanner(connection.getInputStream());
             String resposta = scanner.next();
-            return resposta;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void insere(String json){
+        String endereco = "http://192.168.0.23:8080/api/aluno";
+        realizaConexao(json, endereco);
     }
 }

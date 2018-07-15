@@ -41,6 +41,29 @@ public class AlunoDao extends SQLiteOpenHelper {
             case 1:
                 sql = "ALTER TABLE Alunos ADD COLUMN caminhoFoto TEXT";
                 sqLiteDatabase.execSQL(sql);
+            case 2:
+                String criandoTabelaNova = "CREATE TABLE Alunos_novo " +
+                        "(id CHAR(36) PRIMARY KEY, " +
+                        "nome TEXT NOT NULL, " +
+                        "endereco TEXT, " +
+                        "telefone TEXT, " +
+                        "site TEXT, " +
+                        "nota REAL, " +
+                        "caminhoFoto TEXT);";
+                sqLiteDatabase.execSQL(criandoTabelaNova);
+
+                String inserindoAlunosNaTabelaNova = "INSERT INTO Alunos_novo " +
+                        "(id, nome, endereco, telefone, site, nota, caminhoFoto) " +
+                        "SELECT id, nome, endereco, telefone, site, nota, caminhoFoto " +
+                        "FROM Alunos";
+                sqLiteDatabase.execSQL(inserindoAlunosNaTabelaNova);
+
+                String removendoTabelaAntiga = "DROP TABLE Alunos";
+                sqLiteDatabase.execSQL(removendoTabelaAntiga);
+
+                String alterandoNomeDaTabelaNova = "ALTER TABLE Alunos_novo "+
+                        "RENAME TO Alunos";
+                sqLiteDatabase.execSQL(alterandoNomeDaTabelaNova);
         }
     }
 
